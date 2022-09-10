@@ -17,11 +17,12 @@ func (h *MyHandler) ServeHTTP(writer http.ResponseWriter, request *http.Request)
 
 type HelloHandler struct{}
 
-func (h *HelloHandler) ServeHTTP(w http.ResponseWriter,r *http.Request) {
+func (h *HelloHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "hello")
 }
 
 type WorldHandler struct{}
+
 func (h *WorldHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "world")
 }
@@ -30,14 +31,14 @@ func log(h http.HandlerFunc) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		name := runtime.FuncForPC(reflect.ValueOf(h).Pointer()).Name()
 		fmt.Println("handler function called - " + name)
-		h(w,r)
+		h(w, r)
 	}
 }
 
 func headers(w http.ResponseWriter, r *http.Request) {
 	h := r.Header.Get("User-Agent")
 	q := r.URL.RawQuery
-	fmt.Fprintln(w, h, "<br>",q)
+	fmt.Fprintln(w, h, "<br>", q)
 }
 
 func process(w http.ResponseWriter, r *http.Request) {
@@ -69,6 +70,7 @@ func main() {
 
 	http.HandleFunc("/redirect", res.Location302)
 	http.HandleFunc("/json", res.JsonRes)
+	http.HandleFunc("/cookie", res.CookieSet)
 
 	http.Handle("/writeHeaders", log(tc.WriteHeader))
 	http.Handle("/writeHeader", log(writeHeader.ServeHTTP))
