@@ -6,6 +6,7 @@ import (
 	"reflect"
 	"runtime"
 	"vsfor/goweb/module/learn/res"
+	"vsfor/goweb/module/learn/storage"
 	"vsfor/goweb/module/tm/tc"
 )
 
@@ -68,6 +69,9 @@ func main() {
 		Addr: "0.0.0.0:8181",
 	}
 
+	http.HandleFunc("/db-csv", storage.CsvStore)
+	http.HandleFunc("/db-file", storage.FileStore)
+	http.HandleFunc("/db-memo", storage.MemStore)
 	http.HandleFunc("/layout", res.ShowLayout)
 	http.HandleFunc("/tpl", res.ShowTpl)
 	http.HandleFunc("/redirect", res.Location302)
