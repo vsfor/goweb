@@ -68,6 +68,8 @@ func main() {
 		Addr: "0.0.0.0:8181",
 	}
 
+	http.HandleFunc("/layout", res.ShowLayout)
+	http.HandleFunc("/tpl", res.ShowTpl)
 	http.HandleFunc("/redirect", res.Location302)
 	http.HandleFunc("/json", res.JsonRes)
 	http.HandleFunc("/cookie", res.CookieSet)

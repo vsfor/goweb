@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>go web tpl</title>
+</head>
+<body>
+<pre>{{ . }}</pre>
+<h1>{{ .Data2 }}</h1>
+<p>
+{{ if .Dbool }}
+    dbool is true
+{{ else }}
+    dbool is false
+{{ end }}
+</p>
+
+  <div> include t2.html start</div>
+{{ template "t2.html" .Dhtml }}
+
+  <div> include t2.html end</div>
+</body>
+</html>
