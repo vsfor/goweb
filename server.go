@@ -69,6 +69,8 @@ func main() {
 		Addr: "0.0.0.0:8181",
 	}
 
+	http.HandleFunc("/db-sqlite", storage.SqliteStore)
+	http.HandleFunc("/db-gob", storage.GobStore)
 	http.HandleFunc("/db-csv", storage.CsvStore)
 	http.HandleFunc("/db-file", storage.FileStore)
 	http.HandleFunc("/db-memo", storage.MemStore)
