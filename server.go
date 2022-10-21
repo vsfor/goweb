@@ -60,15 +60,19 @@ func writeExample(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
+	fmt.Println("start server...")
 	handler := MyHandler{}
 	hello := HelloHandler{}
 	world := WorldHandler{}
 	writeHeader := tc.TaHandler{}
 
+	fmt.Println("init...")
 	server := http.Server{
 		Addr: "0.0.0.0:8181",
 	}
 
+	fmt.Println("add routes...")
+	http.HandleFunc("/db-mysql", storage.MysqlStore)
 	http.HandleFunc("/db-sqlite", storage.SqliteStore)
 	http.HandleFunc("/db-gob", storage.GobStore)
 	http.HandleFunc("/db-csv", storage.CsvStore)
@@ -89,5 +93,6 @@ func main() {
 	http.Handle("/world", log(world.ServeHTTP))
 	http.Handle("/", log(handler.ServeHTTP))
 
+	fmt.Println("start listen...")
 	server.ListenAndServe()
 }
